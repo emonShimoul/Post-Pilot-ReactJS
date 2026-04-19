@@ -7,6 +7,7 @@ import usePosts from '../hooks/usePosts';
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [authLoading, setAuthLoading] = useState(true);
     const {posts, setPosts, loading} = usePosts();
     const [editingPost, setEditingPost] = useState(null);
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const AuthProvider = ({children}) => {
         const storedUser = getCurrentUser();
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setUser(storedUser);
+        setAuthLoading(false);
     }, []);
 
     const handleLogOut = () => {
@@ -54,6 +56,7 @@ const AuthProvider = ({children}) => {
         user,
         posts,
         loading,
+        authLoading,
         editingPost,
         setEditingPost,
         setUser, 
