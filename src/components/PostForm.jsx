@@ -50,7 +50,12 @@ const PostForm = ({onAddPost, editingPost, setEditingPost}) => {
                 onChange={e => setBody(e.target.value)}
             />
 
-            <button className='bg-blue-500 text-white px-4 py-2 rounded'>{editingPost ? "Update Post" : "Add Post"}</button>
+            <button 
+                disabled={!title || !body} 
+                className="px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            >
+                {editingPost ? "Update Post" : "Add Post"}
+            </button>
         </form>
     );
 };

@@ -18,10 +18,15 @@ const Posts = () => {
 
     const handleEdit = (post) => {
         setEditingPost(post);
+
+        // 👇 scroll to form
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     const handleDelete = (id) => {
-        setPosts(prev => prev.filter(post => post.id !== id));
+        if (confirm("Are you sure?")) {
+            setPosts(prev => prev.filter(post => post.id !== id));
+        }
     }
 
     const filteredPosts = posts
@@ -57,7 +62,7 @@ const Posts = () => {
             </select>
             {filteredPosts.length === 0 && (
                 <p className="text-center text-gray-500">
-                    No posts found
+                      No posts yet. Start by adding one!
                 </p>
             )}
             <PostForm 
