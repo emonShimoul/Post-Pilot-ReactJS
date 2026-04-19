@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 
-const PostForm = ({onAddPost, editingPost, setEditingPost}) => {
+const PostForm = () => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
-    const {user} = useAuth();
+    const {user, editingPost, setEditingPost, handleAddPost, handleUpdatePost} = useAuth();
 
     // prefill while editing
     useEffect(() => {
@@ -23,17 +23,17 @@ const PostForm = ({onAddPost, editingPost, setEditingPost}) => {
 
         if(editingPost){
             // update
-            onAddPost({...editingPost, title, body});
+            handleUpdatePost({...editingPost, title, body});
             setEditingPost(null);
         } else{
             const newPost = {
-                id: Date.now(),
+                id: Date.now() + Math.random(),
                 title,
                 body,
                 userId: user.id,
                 userName: user.name
             }
-            onAddPost(newPost);
+            handleAddPost(newPost);
         }
         setTitle("");
         setBody("");
