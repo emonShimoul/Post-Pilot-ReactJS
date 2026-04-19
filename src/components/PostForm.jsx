@@ -31,9 +31,6 @@ const PostForm = ({onAddPost, editingPost, setEditingPost}) => {
             }
             onAddPost(newPost);
         }
-
-        
-
         setTitle("");
         setBody("");
     };
