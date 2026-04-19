@@ -23,7 +23,7 @@ const PostForm = ({onAddPost}) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mb-4 space-y-2">
+        <form onSubmit={handleSubmit} className="mb-6 bg-white p-4 rounded-xl shadow space-y-3">
             <input 
                 className="border p-2 w-full"
                 placeholder="Title"

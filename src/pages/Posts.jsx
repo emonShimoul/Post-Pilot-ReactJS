@@ -43,6 +43,11 @@ const Posts = () => {
                 <option value="1">User 1</option>
                 <option value="2">User 2</option>
             </select>
+            {filteredPosts.length === 0 && (
+                <p className="text-center text-gray-500">
+                    No posts found
+                </p>
+            )}
             <PostForm onAddPost={handleAddPost} />
             <PostList posts={filteredPosts} onDelete={handleDelete} />
         </div>
