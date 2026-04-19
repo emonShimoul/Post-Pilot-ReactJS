@@ -1,6 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
+import { getCurrentUser } from "../utils/auth";
 
 const Navbar = () => {
+  const currentUser = getCurrentUser();
+  console.log(currentUser);
+  
   return (
     <nav className="bg-white shadow">
       <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -38,15 +42,26 @@ const Navbar = () => {
           >
             About
           </NavLink>
-
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              isActive ? "text-blue-500 font-semibold" : "text-gray-600"
+            {
+              !currentUser ?
+              
+              <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-500 font-semibold" : "text-gray-600"
+                  }
+                >
+                  Login
+              </NavLink>
+              :
+              <>
+                <span>Hello, {currentUser.name}</span>
+                <button>
+                  LogOut
+                </button>
+              </>
             }
-          >
-            Login
-          </NavLink>
+          
         </div>
       </div>
     </nav>

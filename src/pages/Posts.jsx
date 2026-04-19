@@ -6,7 +6,7 @@ import { Search } from 'lucide-react';
 
 const Posts = () => {
     const {posts, setPosts, loading} = usePosts();
-    console.log(posts);
+    // console.log(posts);
     
     const [search, setSearch] = useState("");
     const [filterUser, setFilterUser] = useState();

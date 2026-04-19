@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { loginUser, setCurrentUser } from "../utils/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../utils/auth";
 
-const Login = () => {
+const Register = () => {
+const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -10,19 +11,24 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = loginUser(email, password);
+    registerUser({
+      id: Date.now(),
+      name,
+      email,
+      password,
+    });
 
-    if (!user) {
-      alert("Invalid credentials");
-      return;
-    }
-
-    setCurrentUser(user);
-    navigate("/posts");
+    navigate("/login");
   };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 space-y-3">
+      <input
+        className="border p-2 w-full"
+        placeholder="Name"
+        onChange={(e) => setName(e.target.value)}
+      />
+      
       <input
         className="border p-2 w-full"
         placeholder="Email"
@@ -37,11 +43,10 @@ const Login = () => {
       />
 
       <button className="bg-blue-500 text-white px-4 py-2 w-full">
-        Login
+        Register
       </button>
-      <p>New user? <Link to="/register" className="text-blue-700 underline">Register</Link></p>
     </form>
   );
 };
 
-export default Login;
+export default Register;
