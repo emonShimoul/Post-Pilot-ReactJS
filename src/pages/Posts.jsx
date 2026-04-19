@@ -28,7 +28,7 @@ const Posts = () => {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div>
+        <div className='my-8 w-2/3 mx-auto'>
             <div className="relative mb-4">
                 <Search className="absolute left-3 top-3 text-gray-400" size={18} />
 
@@ -41,7 +41,7 @@ const Posts = () => {
                 />
             </div>
             <select
-                className="border p-2 mb-4"
+                className="border p-2 mb-4 w-1/2"
                 onChange={(e) => setFilterUser(e.target.value)}
                 >
                 <option value="">All</option>
