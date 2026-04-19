@@ -1,6 +1,9 @@
 import React from 'react';
+import useAuth from '../hooks/useAuth';
 
 const Post = ({post, onDelete, onEdit}) => {
+    const {user} = useAuth();
+    
     return (
         <div className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
             <h2 className="text-lg font-semibold text-gray-800">{post.title}</h2>
@@ -18,7 +21,9 @@ const Post = ({post, onDelete, onEdit}) => {
             >
                 Delete
             </button>
-            
+            <p className="text-sm text-gray-500">
+            By {user.name}
+            </p>
         </div>
     );
 };

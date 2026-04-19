@@ -3,14 +3,16 @@ import usePosts from '../hooks/usePosts';
 import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
 import { Search } from 'lucide-react';
+import useAuth from '../hooks/useAuth';
 
 const Posts = () => {
     const {posts, setPosts, loading} = usePosts();
     // console.log(posts);
-    
+    const {user} = useAuth();
     const [search, setSearch] = useState("");
-    const [filterUser, setFilterUser] = useState();
+    const [filter, setFilter] = useState("mine");
     const [editingPost, setEditingPost] = useState(null);
+
 
     const handleAddPost = (newPost) => {
         setPosts(prev => [newPost, ...prev]);
@@ -29,13 +31,12 @@ const Posts = () => {
         }
     }
 
-    const filteredPosts = posts
-        .filter(post =>
-            post.title.toLowerCase().includes(search.toLowerCase())
-        )
-        .filter(post =>
-            filterUser ? post.userId == filterUser : true
-        )
+    const filteredPosts = posts.filter(post => {
+        if (filter === "mine") {
+            return post.userId === user.id;
+        }
+        return true; // all posts
+    });
 
     if (loading) return <p>Loading...</p>;
 
@@ -53,12 +54,12 @@ const Posts = () => {
                 />
             </div>
             <select
+                value={filter}
                 className="border p-2 mb-4 w-1/2"
-                onChange={(e) => setFilterUser(e.target.value)}
-                >
-                <option value="">All</option>
-                <option value="1">User 1</option>
-                <option value="2">User 2</option>
+                onChange={(e) => setFilter(e.target.value)}
+            >
+                <option value="all">All Posts</option>
+                <option value="mine">My Posts</option>
             </select>
             {filteredPosts.length === 0 && (
                 <p className="text-center text-gray-500">
@@ -70,6 +71,9 @@ const Posts = () => {
                 editingPost={editingPost} 
                 setEditingPost={setEditingPost}
             />
+            <p className="text-sm text-gray-500 mb-4">
+            Showing: {filter === "mine" ? "My Posts" : "All Posts"}
+            </p>
             <PostList posts={filteredPosts} onDelete={handleDelete} onEdit={handleEdit} />
         </div>
     );

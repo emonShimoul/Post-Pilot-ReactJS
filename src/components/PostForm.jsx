@@ -1,9 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
+import useAuth from '../hooks/useAuth';
 
 const PostForm = ({onAddPost, editingPost, setEditingPost}) => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
+    const {user} = useAuth();
 
     // prefill while editing
     useEffect(() => {
@@ -27,7 +29,9 @@ const PostForm = ({onAddPost, editingPost, setEditingPost}) => {
             const newPost = {
                 id: Date.now(),
                 title,
-                body
+                body,
+                userId: user.id,
+                userName: user.name
             }
             onAddPost(newPost);
         }
