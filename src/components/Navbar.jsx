@@ -1,9 +1,16 @@
-import { Link, NavLink } from "react-router-dom";
-import { getCurrentUser } from "../utils/auth";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { logoutUser } from "../utils/auth";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-  const currentUser = getCurrentUser();
-  console.log(currentUser);
+  const {user, setUser} = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    logoutUser();
+    setUser(null);
+    navigate("/login");
+  }
   
   return (
     <nav className="bg-white shadow">
@@ -43,7 +50,7 @@ const Navbar = () => {
             About
           </NavLink>
             {
-              !currentUser ?
+              !user ?
               
               <NavLink
                   to="/login"
@@ -55,8 +62,8 @@ const Navbar = () => {
               </NavLink>
               :
               <>
-                <span>Hello, {currentUser.name}</span>
-                <button>
+                <span>Hello, {user.name}</span>
+                <button onClick={()=>handleLogOut()}>
                   LogOut
                 </button>
               </>

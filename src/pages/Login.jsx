@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { loginUser, setCurrentUser } from "../utils/auth";
 import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {setUser} = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ const Login = () => {
     }
 
     setCurrentUser(user);
+    setUser(user); // for immediate updating the state after login
     navigate("/posts");
   };
 
