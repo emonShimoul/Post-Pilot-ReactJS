@@ -1,22 +1,38 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const PostForm = ({onAddPost}) => {
+const PostForm = ({onAddPost, editingPost, setEditingPost}) => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
+
+    // prefill while editing
+    useEffect(() => {
+        if(editingPost){
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setTitle(editingPost.title);
+            setBody(editingPost.body);
+        }
+    }, [editingPost]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if(!title || !body) return;
 
-        const newPost = {
-            id: Date.now(),
-            title,
-            body
+        if(editingPost){
+            // update
+            onAddPost({...editingPost, title, body});
+            setEditingPost(null);
+        } else{
+            const newPost = {
+                id: Date.now(),
+                title,
+                body
+            }
+            onAddPost(newPost);
         }
 
-        onAddPost(newPost);
+        
 
         setTitle("");
         setBody("");
@@ -37,7 +53,7 @@ const PostForm = ({onAddPost}) => {
                 onChange={e => setBody(e.target.value)}
             />
 
-            <button className='bg-blue-500 text-white px-4 py-2'>Add Post</button>
+            <button className='bg-blue-500 text-white px-4 py-2 rounded'>{editingPost ? "Update Post" : "Add Post"}</button>
         </form>
     );
 };

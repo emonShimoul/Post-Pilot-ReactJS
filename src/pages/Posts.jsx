@@ -6,12 +6,19 @@ import { Search } from 'lucide-react';
 
 const Posts = () => {
     const {posts, setPosts, loading} = usePosts();
+    console.log(posts);
+    
     const [search, setSearch] = useState("");
     const [filterUser, setFilterUser] = useState();
+    const [editingPost, setEditingPost] = useState(null);
 
     const handleAddPost = (newPost) => {
         setPosts(prev => [newPost, ...prev]);
     };
+
+    const handleEdit = (post) => {
+        setEditingPost(post);
+    }
 
     const handleDelete = (id) => {
         setPosts(prev => prev.filter(post => post.id !== id));
@@ -53,8 +60,12 @@ const Posts = () => {
                     No posts found
                 </p>
             )}
-            <PostForm onAddPost={handleAddPost} />
-            <PostList posts={filteredPosts} onDelete={handleDelete} />
+            <PostForm 
+                onAddPost={handleAddPost}
+                editingPost={editingPost} 
+                setEditingPost={setEditingPost}
+            />
+            <PostList posts={filteredPosts} onDelete={handleDelete} onEdit={handleEdit} />
         </div>
     );
 };
