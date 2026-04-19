@@ -1,16 +1,8 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { logoutUser } from "../utils/auth";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-  const {user, setUser} = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogOut = () => {
-    logoutUser();
-    setUser(null);
-    navigate("/login");
-  }
+  const {user, handleLogOut} = useAuth();
   
   return (
     <nav className="bg-white shadow">
@@ -51,7 +43,6 @@ const Navbar = () => {
           </NavLink>
             {
               !user ?
-              
               <NavLink
                   to="/login"
                   className={({ isActive }) =>

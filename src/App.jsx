@@ -5,16 +5,21 @@ import Posts from "./pages/Posts";
 import Login from "./pages/Login";
 import About from "./pages/About";
 import Register from "./pages/Register";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
-        <Route path="posts" element={<Posts />} />
+        <Route path="posts" element={
+          <PrivateRoute>
+            <Posts />
+          </PrivateRoute>
+        }/>
         <Route path="about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
       </Route>
     </Routes>
   );

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
+  const {user, handleLogOut} = useAuth();
+  
   return (
     <div className="space-y-16">
 
@@ -23,12 +26,16 @@ const Home = () => {
             Explore Posts
           </Link>
 
-          <Link
+          {!user ? <Link
             to="/login"
             className="border px-6 py-2 rounded hover:bg-gray-100"
           >
             Login
-          </Link>
+          </Link> :
+          <button className="border px-6 py-2 rounded hover:bg-gray-100" onClick={()=>handleLogOut()}>
+            LogOut
+          </button>
+          }
         </div>
       </section>
 

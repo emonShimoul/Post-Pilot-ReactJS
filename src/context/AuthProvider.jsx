@@ -1,10 +1,19 @@
 
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { getCurrentUser } from '../utils/auth';
+import { getCurrentUser, logoutUser } from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        logoutUser();
+        setUser(null);
+        navigate("/login");
+    }
 
     useEffect(() => {
         const storedUser = getCurrentUser();
@@ -13,7 +22,7 @@ const AuthProvider = ({children}) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={{user, setUser, handleLogOut}}>
         {children}
         </AuthContext.Provider>
     );
