@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import usePosts from '../hooks/usePosts';
 import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
+import { Search } from 'lucide-react';
 
 const Posts = () => {
     const {posts, setPosts, loading} = usePosts();
@@ -28,13 +29,17 @@ const Posts = () => {
 
     return (
         <div>
-            <input
-                type="text"
-                placeholder='Search posts...'
-                className='border p-2 w-full mb-4 rounded'
-                values={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className="relative mb-4">
+                <Search className="absolute left-3 top-3 text-gray-400" size={18} />
+
+                <input
+                    type="text"
+                    placeholder="Search posts..."
+                    className="border pl-10 pr-3 py-2 w-full rounded"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
             <select
                 className="border p-2 mb-4"
                 onChange={(e) => setFilterUser(e.target.value)}
