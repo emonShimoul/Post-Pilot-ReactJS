@@ -21,7 +21,7 @@ const PostDetails = () => {
                 By {post.userName || "Guest"}
             </p>
 
-            <p className="mt-4 text-gray-700 leading-relaxed">
+            <p className="mt-4 text-gray-700 leading-relaxed whitespace-pre-line">
                 {post.body}
             </p>
         </div>

@@ -6,9 +6,10 @@ import useAuth from '../hooks/useAuth';
 import Pagination from '../components/Pagination';
 
 const Posts = () => {
-    const {user, posts, loading} = useAuth();
+    const {user, posts, loading, handleEdit} = useAuth();
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("mine");
+    const [showForm, setShowForm] = useState(false);
     // console.log(posts);
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 3;
@@ -34,6 +35,12 @@ const Posts = () => {
     
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
+    // for passing to Post.jsx to open the form modal after clicking edit post
+    const handleEditClick = (post) => {
+        handleEdit(post);        // from AuthProvider
+        setShowForm(true);       // open modal
+    };
+
     if (loading) return <p>Loading...</p>;
 
     return (
@@ -49,24 +56,46 @@ const Posts = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            <select
-                value={filter}
-                className="border p-2 mb-4 w-1/2"
-                onChange={(e) => setFilter(e.target.value)}
-            >
-                <option value="all">All Posts</option>
-                <option value="mine">My Posts</option>
-            </select>
+            
+            <div className='flex justify-between'>
+                <select
+                    value={filter}
+                    className="border p-2 mb-4 w-1/2"
+                    onChange={(e) => setFilter(e.target.value)}
+                >
+                    <option value="all">All Posts</option>
+                    <option value="mine">My Posts</option>
+                </select>
+
+                <button
+                    onClick={() => setShowForm(true)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded mb-4 hover:bg-blue-600"
+                    >
+                    Add a Post
+                </button>
+            </div>
+
             {filteredPosts.length === 0 && (
                 <p className="text-center text-gray-500">
                       No posts yet. Start by adding one!
                 </p>
             )}
-            <PostForm />
+            
+            {showForm && (
+                <div className="fixed inset-0 bg-black/40 flex items-center justify-center px-4">
+                    <div className="bg-white p-6 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+                        <PostForm onClose={() => setShowForm(false)} />
+                    </div>
+                </div>
+            )}
+            
             <p className="text-sm text-gray-500 mb-4">
             Showing: {filter === "mine" ? "My Posts" : "All Posts"}
             </p>
-            <PostList posts={paginatedPosts} />
+            <PostList 
+                posts={paginatedPosts}
+                onEdit={handleEditClick}
+            />
             <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

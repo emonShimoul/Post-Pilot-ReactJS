@@ -1,8 +1,8 @@
 import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 
-const Post = ({ post }) => {
-  const { user, handleDelete, handleEdit } = useAuth();
+const Post = ({ post, onEdit }) => {
+  const { user, handleDelete } = useAuth();
 
   const shortDesc = post.body.length > 100 ?
     post.body.slice(0, 150) + "..." :
@@ -41,7 +41,7 @@ const Post = ({ post }) => {
             {user && post.userId === user.id && (
             <div className="flex gap-4">
                 <button
-                onClick={() => handleEdit(post)}
+                onClick={() => onEdit(post)}
                 className="text-blue-500 hover:underline"
                 >
                 Edit

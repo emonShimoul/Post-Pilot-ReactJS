@@ -1,6 +1,6 @@
 import Post from './Post';
 
-const PostList = ({posts}) => {
+const PostList = ({posts, onEdit}) => {
     if(posts.length === 0){
         return <p>No posts available...</p>;
     }
@@ -8,7 +8,7 @@ const PostList = ({posts}) => {
     return (
         <div className='space-y-3'>
             {posts.map(post => (
-               <Post key={post.id} post={post} />
+               <Post key={post.id} post={post} onEdit={onEdit} />
             ))}
         </div>
     );

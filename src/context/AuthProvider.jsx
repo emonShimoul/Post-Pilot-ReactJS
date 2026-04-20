@@ -41,9 +41,6 @@ const AuthProvider = ({children}) => {
 
     const handleEdit = (post) => {
         setEditingPost(post);
-
-        // 👇 scroll to form
-        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     const handleDelete = (id) => {
