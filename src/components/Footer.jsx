@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 mt-16">
+    <footer className="bg-gray-900 text-gray-300 mt-2">
       <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8">
 
         {/* Brand */}
@@ -15,7 +15,7 @@ const Footer = () => {
         </div>
 
         {/* Links */}
-        <div>
+        <div className="md:ps-36">
           <h3 className="text-white font-semibold mb-2">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li>
@@ -37,7 +37,7 @@ const Footer = () => {
         </div>
 
         {/* Social */}
-        <div>
+        <div className="md:ps-32">
           <h3 className="text-white font-semibold mb-2">Connect</h3>
           <p className="text-sm">Let’s connect</p>
 
