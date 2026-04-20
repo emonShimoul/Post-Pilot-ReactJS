@@ -31,8 +31,6 @@ const Posts = () => {
         startIndex,
         startIndex + postsPerPage
     );
-    console.log(filteredPosts);
-    console.log(paginatedPosts);
     
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 

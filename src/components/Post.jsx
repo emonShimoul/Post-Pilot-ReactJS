@@ -1,8 +1,12 @@
-import React from 'react';
 import useAuth from '../hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
   const { user, handleDelete, handleEdit } = useAuth();
+
+  const shortDesc = post.body.length > 100 ?
+    post.body.slice(0, 150) + "..." :
+    post.body;
 
   return (
     <div className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
@@ -14,7 +18,7 @@ const Post = ({ post }) => {
             </h2>
 
             <p className="text-gray-600 mt-2">
-            {post.body}
+            {shortDesc}
             </p>
         </div>
 
@@ -25,6 +29,13 @@ const Post = ({ post }) => {
             <p className="text-sm text-gray-500">
             By {post.userName ? post.userName : "Guest User"}
             </p>
+
+            <Link
+                to={`/posts/${post.id}`}
+                className="text-blue-500 hover:underline inline-block"
+            >
+                view details →
+            </Link>
 
             {/* ACTIONS */}
             {user && post.userId === user.id && (

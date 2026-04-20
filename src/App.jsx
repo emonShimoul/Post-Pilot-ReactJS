@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Register from "./pages/Register";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
+import PostDetails from "./pages/PostDetails";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Register />
           </PublicRoute>
         } />
+        <Route path="/posts/:id" element={<PostDetails/>} />
       </Route>
     </Routes>
   );

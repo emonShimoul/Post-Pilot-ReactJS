@@ -49,7 +49,7 @@ const About = () => {
         <h2 className="text-2xl font-semibold mb-3 text-center">Tech Stack</h2>
 
         <p className="text-gray-700 text-center">
-          React, React Router, Tailwind CSS, Context API, LocalStorage
+          React, React Router, Dynamic Route, Tailwind CSS, Context API, LocalStorage
         </p>
       </section>
 

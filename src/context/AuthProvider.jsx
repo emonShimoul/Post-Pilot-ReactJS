@@ -19,7 +19,6 @@ const AuthProvider = ({children}) => {
         setAuthLoading(false);
     }, []);
     
-    console.log(posts);
     const handleLogOut = () => {
         logoutUser();
         setUser(null);
