@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../utils/auth";
+import { SHA256 } from "crypto-js";
 
 const Register = () => {
 const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const hashedPassowrd = SHA256(password).toString();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +17,7 @@ const [name, setName] = useState("");
       id: Date.now(),
       name,
       email,
-      password,
+      password:hashedPassowrd,
     });
 
     navigate("/login");

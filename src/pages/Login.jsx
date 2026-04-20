@@ -2,6 +2,7 @@ import { useState } from "react";
 import { loginUser, setCurrentUser } from "../utils/auth";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { SHA256 } from "crypto-js";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,10 +10,12 @@ const Login = () => {
   const navigate = useNavigate();
   const {setUser} = useAuth();
 
+  const hashedInput = SHA256(password).toString();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = loginUser(email, password);
+    const user = loginUser(email, hashedInput);
 
     if (!user) {
       alert("Invalid credentials");
