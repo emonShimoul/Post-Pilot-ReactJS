@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import About from "./pages/About";
 import Register from "./pages/Register";
 import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 function App() {
   return (
@@ -18,8 +19,16 @@ function App() {
           </PrivateRoute>
         }/>
         <Route path="about" element={<About />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route path="login" element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        } />
+        <Route path="register" element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        } />
       </Route>
     </Routes>
   );

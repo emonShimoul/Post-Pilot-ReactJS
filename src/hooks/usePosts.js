@@ -23,9 +23,7 @@ const usePosts = () => {
 
   // save to localstorage
   useEffect(() => {
-    if (posts.length > 0) {
-      localStorage.setItem("posts", JSON.stringify(posts));
-    }
+    localStorage.setItem("posts", JSON.stringify(posts));
   }, [posts]);
 
   return { posts, setPosts, loading };
