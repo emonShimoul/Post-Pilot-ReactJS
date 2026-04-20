@@ -7,7 +7,7 @@ const usePosts = () => {
 
   useEffect(() => {
     const stored = localStorage.getItem("posts");
-    if(stored){
+    if(stored && JSON.parse(stored).length > 0){
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setPosts(JSON.parse(stored));
       setLoading(false);
@@ -23,7 +23,9 @@ const usePosts = () => {
 
   // save to localstorage
   useEffect(() => {
-    localStorage.setItem("posts", JSON.stringify(posts));
+    if (posts.length > 0) {
+      localStorage.setItem("posts", JSON.stringify(posts));
+    }
   }, [posts]);
 
   return { posts, setPosts, loading };

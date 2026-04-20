@@ -11,14 +11,15 @@ const AuthProvider = ({children}) => {
     const {posts, setPosts, loading} = usePosts();
     const [editingPost, setEditingPost] = useState(null);
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         const storedUser = getCurrentUser();
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setUser(storedUser);
         setAuthLoading(false);
     }, []);
-
+    
+    console.log(posts);
     const handleLogOut = () => {
         logoutUser();
         setUser(null);

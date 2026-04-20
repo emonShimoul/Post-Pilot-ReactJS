@@ -3,13 +3,17 @@ import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
 import { Search } from 'lucide-react';
 import useAuth from '../hooks/useAuth';
+import Pagination from '../components/Pagination';
 
 const Posts = () => {
     const {user, posts, loading} = useAuth();
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("mine");
     // console.log(posts);
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 3;
     
+    // filtered posts
     const filteredPosts = posts
         .filter(post => {
             if (filter === "mine") {
@@ -21,10 +25,21 @@ const Posts = () => {
             post.title.toLowerCase().includes(search.toLowerCase())
         );
 
+    // Pagination
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const paginatedPosts = filteredPosts.slice(
+        startIndex,
+        startIndex + postsPerPage
+    );
+    console.log(filteredPosts);
+    console.log(paginatedPosts);
+    
+    const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div className='my-8 w-2/3 mx-auto'>
+        <div className='mt-8 w-2/3 mx-auto'>
             <div className="relative mb-4">
                 <Search className="absolute left-3 top-3 text-gray-400" size={18} />
 
@@ -53,7 +68,12 @@ const Posts = () => {
             <p className="text-sm text-gray-500 mb-4">
             Showing: {filter === "mine" ? "My Posts" : "All Posts"}
             </p>
-            <PostList posts={filteredPosts} />
+            <PostList posts={paginatedPosts} />
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+            />
         </div>
     );
 };
