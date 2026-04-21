@@ -17,6 +17,12 @@ const PostDetails = () => {
         navigate("/posts");   // go to Posts page
     }
 
+    // redirect to the posts page after deleting a post
+    const handleDeleteClick = () => {
+        handleDelete(post.id);
+        navigate("/posts");
+    }
+
     if (!post) return <p>Post not found</p>;
 
     return (
@@ -35,7 +41,7 @@ const PostDetails = () => {
                 </button>
 
                 <button
-                onClick={() => handleDelete(post.id)}
+                onClick={() => handleDeleteClick(post.id)}
                 className="text-red-500 hover:underline"
                 >
                 Delete

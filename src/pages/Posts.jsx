@@ -14,6 +14,7 @@ const Posts = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 3;
 
+    // for opening the modal when click edit post button from the postDetails page.
     useEffect(() => {
         if(editingPost){
             // eslint-disable-next-line react-hooks/set-state-in-effect
