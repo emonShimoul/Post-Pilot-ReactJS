@@ -9,7 +9,9 @@ const Post = ({ post, onEdit }) => {
     post.body;
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+    <div className="bg-white p-4 rounded-xl shadow 
+           hover:shadow-xl hover:-translate-y-1 
+           transition duration-300">
 
         {/* CONTENT */}
         <div>

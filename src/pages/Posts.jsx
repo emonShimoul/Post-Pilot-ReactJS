@@ -83,7 +83,9 @@ const Posts = () => {
             
             {showForm && (
                 <div className="fixed inset-0 bg-black/40 flex items-center justify-center px-4">
-                    <div className="bg-white p-6 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+                    <div className="bg-white p-6 rounded-xl w-full max-w-3xl shadow-lg 
+                  transform transition-all duration-300 scale-95 opacity-0 
+                  animate-fadeIn">
                         <PostForm onClose={() => setShowForm(false)} />
                     </div>
                 </div>
