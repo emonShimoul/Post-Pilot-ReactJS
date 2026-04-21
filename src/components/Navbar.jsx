@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
 
         {/* Logo */}
-        <Link to="/" className="text-xl font-bold text-blue-500">
+        <Link to="/" className="text-2xl font-bold text-blue-500">
           PostPilot
         </Link>
 
@@ -53,7 +53,7 @@ const Navbar = () => {
               </NavLink>
               :
               <>
-                <span>Hello, {user.name}</span>
+                <span>Hello, <span className="font-bold">{user.name}</span></span>
                 <button onClick={()=>handleLogOut()}>
                   LogOut
                 </button>
