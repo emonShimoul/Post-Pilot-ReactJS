@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
 import { Search } from 'lucide-react';
@@ -6,13 +6,20 @@ import useAuth from '../hooks/useAuth';
 import Pagination from '../components/Pagination';
 
 const Posts = () => {
-    const {user, posts, loading, handleEdit} = useAuth();
+    const {user, posts, loading, handleEdit, editingPost} = useAuth();
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("mine");
     const [showForm, setShowForm] = useState(false);
     // console.log(posts);
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 3;
+
+    useEffect(() => {
+        if(editingPost){
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setShowForm(true);
+        }
+    }, [editingPost]);
     
     // filtered posts
     const filteredPosts = posts
