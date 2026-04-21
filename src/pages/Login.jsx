@@ -3,6 +3,7 @@ import { loginUser, setCurrentUser } from "../utils/auth";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { SHA256 } from "crypto-js";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const Login = () => {
     const user = loginUser(email, hashedInput);
 
     if (!user) {
-      alert("Invalid credentials");
+      toast.error("Invalid credentials!!");
       return;
     }
 
