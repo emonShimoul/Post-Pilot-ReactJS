@@ -8,31 +8,35 @@ import Register from "./pages/Register";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 import PostDetails from "./pages/PostDetails";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path="posts" element={
-          <PrivateRoute>
-            <Posts />
-          </PrivateRoute>
-        }/>
-        <Route path="about" element={<About />} />
-        <Route path="login" element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        } />
-        <Route path="register" element={
-          <PublicRoute>
-            <Register />
-          </PublicRoute>
-        } />
-        <Route path="/posts/:id" element={<PostDetails/>} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="posts" element={
+            <PrivateRoute>
+              <Posts />
+            </PrivateRoute>
+          }/>
+          <Route path="about" element={<About />} />
+          <Route path="login" element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          } />
+          <Route path="register" element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          } />
+          <Route path="/posts/:id" element={<PostDetails/>} />
+        </Route>
+      </Routes>
+      <ToastContainer position="top-right" autoClose={2000} />
+    </>
   );
 }
 

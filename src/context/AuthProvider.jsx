@@ -4,6 +4,8 @@ import { AuthContext } from './AuthContext';
 import { getCurrentUser, logoutUser } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
 import usePosts from '../hooks/usePosts';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
@@ -27,6 +29,7 @@ const AuthProvider = ({children}) => {
 
     const handleAddPost = (newPost) => {
         setPosts(prev => [newPost, ...prev]);
+        toast.success("Post added successfully!");
     };
 
     const handleUpdatePost = (updatedPost) => {
@@ -37,6 +40,7 @@ const AuthProvider = ({children}) => {
             post.id === updatedPost.id ? updatedPost : post
             )
         );
+        toast.success("Post updated successfully!");
     };
 
     const handleEdit = (post) => {
@@ -44,10 +48,28 @@ const AuthProvider = ({children}) => {
     }
 
     const handleDelete = (id) => {
-        if (confirm("Are you sure?")) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This can't be undone",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Delete",
+            cancelButtonText: "Cancel",
+
+            // 👇 FIX HERE
+            customClass: {
+                confirmButton: "bg-red-500 text-white px-4 py-2 rounded",
+                cancelButton: "bg-gray-300 text-black px-4 py-2 rounded ml-2"
+            },
+
+            buttonsStyling: false
+        }).then((result) => {
+            if (result.isConfirmed) {
             setPosts(prev => prev.filter(post => post.id !== id));
-        }
-    }
+            toast.success("Deleted!");
+            }
+        });
+    };
 
     const values = {
         user,
